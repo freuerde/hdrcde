@@ -1,0 +1,49 @@
+\name{hdr.scatter}
+\alias{hdr.scatter}
+\title{Scatterplot With Highest Density Regions}
+\description{
+Plots a Scatterplot colored by highest density regions.}
+\usage{
+hdr.scatter <- function(x, y, prob=c(0.5, 0.95, 0.99), col=gray((1:9)/10), 
+  xlab=NULL, ylab=NULL, main=NULL)
+}
+
+\arguments{
+  \item{x}{  Numeric vector.}
+  \item{y}{  Numeric vector of same length as \code{x}.}
+  \item{prob}{Probability coverage required for HDRs.}
+  \item{col}{Colors for points of the scatterplot.}
+  \item{xlab}{Label for x-axis.}
+  \item{ylab}{Label for y-axis.}
+  \item{main}{Title of the plot.}
+  \item{\dots}{Other arguments to be passed to plot.}
+}
+
+\details{Combination of bivariate highest density regions and a scatterplot. The highest density regions are calculated by the function \code{\link[hdr.2d]{hdr.2d}}. The density is estimated using kernel density estimation. Either \code{\link[ash]{ash2}} or \code{\link[ks]{kde}} is used to do the calculations. Then Hyndman's (1996) density quantile algorithm is used to compute the HDRs. 
+}
+
+\references{Hyndman, R.J. (1996) Computing and graphing highest density regions
+\emph{American Statistician}, \bold{50}, 120-126.}
+
+\author{Freuer Dennis}
+
+\value{Some information about the HDRs is returned. See code for details.}
+
+\seealso{\code{\link{hdr.2d}}}
+
+\examples{
+# Required package: ggplot2
+hdr.scatter(diamonds$carat, diamonds$price, xlab="carat", ylab="price", main="HDR-Scatterplot")
+
+
+# Different colors analogous to the colors of hdr.den()
+x <- c(rnorm(500,0,1),rnorm(500,4,1))
+y <- c(rnorm(500,0,1),rnorm(500,4,1))
+hdr.scatter(x,y, col=c(4,2,3))
+}
+
+\keyword{smooth}
+\keyword{distribution}
+\keyword{hplot}
+\keyword{scatterplot}
+\keyword{hdr}

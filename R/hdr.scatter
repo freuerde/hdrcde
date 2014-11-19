@@ -1,0 +1,16 @@
+# Combination of bivariate highest density regions and a scatterplot
+# Dennis Freuer, 2014
+
+hdr.scatter <- function(x, y, prob=c(0.5, 0.95, 0.99), col=gray((1:9)/10), xlab=NULL, ylab=NULL, main=NULL) {
+  h2 <- hdr.2d(x,y)
+  
+  ord<-order(h2$fxy, decreasing=TRUE)
+  to<-c(0, ceiling(prob*length(ord)))
+  
+  plot(x,y, xlab=xlab, ylab=ylab, main=main)
+  
+  for (i in 1:length(prob)) {
+    points(h2$x[ord[to[i]+1:to[i+1]]], h2$y[ord[to[i]+1:to[i+1]]], pch=16, col=col[i])
+  }
+  points(h2$x[ord[to[i+1]+1:length(ord)]], h2$y[ord[to[i+1]+1:length(ord)]], pch=16, col="antiquewhite4")  
+}
